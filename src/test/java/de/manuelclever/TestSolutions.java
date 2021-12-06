@@ -45,6 +45,8 @@ public class TestSolutions
         list.add(new long[]{4,3,17884});
         list.add(new long[]{5,1,7318});
         list.add(new long[]{5,2,19939});
+        list.add(new long[]{6,1,377263});
+        list.add(new long[]{6,2,1695929023803L});
 
         return list.stream();
     }
