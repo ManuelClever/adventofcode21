@@ -11,7 +11,6 @@ public class Calculate_06 implements Calculator {
     @Override
     public long calculatePart1() {
         return simulate(80, getInput());
-
     }
 
     private Map<Integer, Long> getInput() {

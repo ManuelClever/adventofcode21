@@ -5,13 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MyFileReader {
-    private Path path = null;
+    private Path path;
 
     public MyFileReader(int day, int part) {
         String dayWithZero = day < 10 ? "0" + day : String.valueOf(day);
@@ -30,6 +31,14 @@ public class MyFileReader {
             return null;
         }
         return list;
+    }
+
+    public String getString() {
+        try {
+            return Files.readString(Path.of(path.toString()));
+        } catch(IOException e) {
+            return "";
+        }
     }
 
     public Scanner createScanner() {
