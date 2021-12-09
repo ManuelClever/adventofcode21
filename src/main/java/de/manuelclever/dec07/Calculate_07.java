@@ -10,7 +10,7 @@ public class Calculate_07 implements Calculator {
     @Override
     public long calculatePart1() {
         int[] input = getInput();
-        int median = getMedianAndSort(input);
+        int median = sortAndGetMedian(input);
 
         return calculateLeastFuel(median, input, 1)[0];
     }
@@ -20,7 +20,7 @@ public class Calculate_07 implements Calculator {
         return (Arrays.stream(fr.getString().split(",")).mapToInt(Integer::parseInt).toArray());
     }
 
-    private int getMedianAndSort(int[] input) {
+    private int sortAndGetMedian(int[] input) {
         Arrays.sort(input);
         return input[input.length / 2];
     }
@@ -65,11 +65,10 @@ public class Calculate_07 implements Calculator {
     @Override
     public long calculatePart2() {
         int[] input = getInput();
-        int median = getMedianAndSort(input);
+        int median = sortAndGetMedian(input);
 
         return calculateLeastFuel(median, input, 2)[0];
     }
-
 
     private int calculateFuelPart2(int x, int[] input) {
         int fuel = 0;
