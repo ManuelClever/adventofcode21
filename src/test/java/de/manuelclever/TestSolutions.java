@@ -28,6 +28,7 @@ public class TestSolutions
             }
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             Assertions.fail();
         }
     }
@@ -49,7 +50,10 @@ public class TestSolutions
         list.add(new long[]{6,2,1695929023803L});
         list.add(new long[]{7,1,364898});
         list.add(new long[]{7,2,104149091});
-        list.add(new long[]{8,2,440});
+        list.add(new long[]{8,1,440});
+        list.add(new long[]{9,1,465});
+        list.add(new long[]{9,2,786780});
+        list.add(new long[]{10,1,243939});
 
         return list.stream();
     }

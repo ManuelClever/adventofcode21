@@ -8,6 +8,8 @@ import de.manuelclever.dec05.Calculate_05;
 import de.manuelclever.dec06.Calculate_06;
 import de.manuelclever.dec07.Calculate_07;
 import de.manuelclever.dec08.Calculate_08;
+import de.manuelclever.dec09.Calculate_09;
+import de.manuelclever.dec10.Calculate_10;
 
 public class Factory {
     Calculator calculatePart;
@@ -23,6 +25,8 @@ public class Factory {
             case 6 -> {return new Calculate_06();}
             case 7 -> {return new Calculate_07();}
             case 8 -> {return new Calculate_08();}
+            case 9 -> {return new Calculate_09();}
+            case 10 -> {return new Calculate_10();}
             default -> throw new Exception("No such class");
         }
 
