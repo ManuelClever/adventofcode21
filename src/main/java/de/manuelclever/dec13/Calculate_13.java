@@ -93,7 +93,7 @@ public class Calculate_13 implements Calculator {
         fold(folds.size());
         draw();
 
-        return dots.size();
+        return 0;
     }
 
     private void draw() {
