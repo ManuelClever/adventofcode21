@@ -59,7 +59,7 @@ public class TestSolutions
         list.add(new long[]{11,1,1675});
         list.add(new long[]{11,2,515});
         list.add(new long[]{12,1,3369});
-//        list.add(new long[]{12,2,0});
+        list.add(new long[]{12,2,85883});
         list.add(new long[]{13,1,753});
 //        list.add(new long[]{13,2,0});  <- not tested because solution is drawn in console and read manually
 

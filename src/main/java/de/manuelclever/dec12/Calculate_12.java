@@ -6,6 +6,7 @@ import de.manuelclever.MyFileReader;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Calculate_12 implements Calculator {
     Graph graph;
@@ -63,7 +64,6 @@ public class Calculate_12 implements Calculator {
                 }
             }
         }
-
     }
 
     private boolean isAllLowercase(String vertex) {
@@ -76,53 +76,63 @@ public class Calculate_12 implements Calculator {
 
     @Override
     public long calculatePart2() {
-        return 0;
-    }
-}
+        createGraph();
 
-class Graph {
-    Map<String, List<String>> graph;
+        paths = new HashSet<>();
+        List<String> startEdges = graph.getNeighbours("start");
 
-    public Graph() {
-        this.graph = new HashMap<>();
-    }
+        for(String vertex : startEdges) {
+            StringBuilder sb = new StringBuilder("start,");
+            Set<String> visited = new HashSet<>();
+            visited.add("start");
+            int smallCaveCounter = 0;
 
-    public void addVertex(String vertex) {
-        if(!graph.containsKey(vertex)) {
-            graph.put(vertex, new ArrayList<>());
-        }
-    }
-
-    public void addEdge(String vertex1, String vertex2) {
-
-        if(!graph.containsKey(vertex1)) {
-            addVertex(vertex1);
-        }
-        if(!graph.containsKey(vertex2)) {
-            addVertex(vertex2);
-        }
-
-        graph.get(vertex1).add(vertex2);
-        graph.get(vertex2).add(vertex1);
-    }
-
-    public List<String> getNeighbours(String vertex) {
-        return graph.get(vertex);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        for(Map.Entry<String, List<String>> entry : graph.entrySet()) {
-            sb.append(entry.getKey()).append(": ");
-
-            for(String conn : entry.getValue()) {
-                sb.append(conn).append(",");
+            if (isAllLowercase(vertex)) {
+                newSplit(vertex, sb, visited, smallCaveCounter);
+                smallCaveCounter++;
             }
-            sb.append("\n");
-        }
 
-        return sb.toString();
+            sb.append(vertex).append(",");
+            buildPathPart2(vertex, sb, visited, smallCaveCounter);
+        }
+        return paths.size();
+    }
+
+    private void buildPathPart2(String vertex, StringBuilder sb, Set<String> visited, int smallCaveCounter) {
+        List<String> vertexes = graph.getNeighbours(vertex);
+
+        for(String neighbour : vertexes) {
+
+            if(!visited.contains(neighbour)) {
+                StringBuilder splitOneSB = new StringBuilder(sb);
+                Set<String> splitOneVisited = new HashSet<>(visited);
+                int splitOneSmallCaveCounter = smallCaveCounter;
+
+                if (neighbour.equals("end")) {
+                    paths.add(sb.append("end").toString());
+                } else {
+                    if (isAllLowercase(neighbour)) {
+
+                        if(splitOneSmallCaveCounter < 1) {
+                            newSplit(neighbour,splitOneSB, splitOneVisited, splitOneSmallCaveCounter);
+                            splitOneSmallCaveCounter++;
+                        } else {
+                            splitOneVisited.add(neighbour);
+                        }
+                    }
+                    splitOneSB.append(neighbour).append(",");
+                    buildPathPart2(neighbour, splitOneSB, splitOneVisited, splitOneSmallCaveCounter);
+                }
+            }
+        }
+    }
+
+    private void newSplit(String vertex, StringBuilder sb, Set<String> visited, int smallCaveCounter) {
+        StringBuilder splitSB = new StringBuilder(sb);
+        Set<String> splitVisited = new HashSet<>(visited);
+
+        splitVisited.add(vertex);
+        splitSB.append(vertex).append(",");
+        buildPathPart2(vertex, splitSB, splitVisited, 0);
     }
 }
