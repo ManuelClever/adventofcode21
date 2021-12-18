@@ -111,7 +111,6 @@ public class Calculate_13 implements Calculator {
             System.out.print("#");
             lastX = dot.x;
 
-
             if (i != sortedList.size() - 1 && dot.y < sortedList.get(i + 1).y) { //if next row
                 System.out.println();
                 lastX = 0;
