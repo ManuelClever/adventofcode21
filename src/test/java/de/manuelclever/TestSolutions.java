@@ -64,6 +64,8 @@ public class TestSolutions
 //        list.add(new long[]{13,2,0});  <- not tested because solution is drawn in console and read manually
         list.add(new long[]{14,1,2112});
         list.add(new long[]{14,2,3243771149914L});
+        list.add(new long[]{15,1,739});
+        list.add(new long[]{15,2,3040});
 
         return list.stream();
     }
