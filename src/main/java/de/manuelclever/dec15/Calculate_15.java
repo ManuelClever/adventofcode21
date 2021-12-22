@@ -26,8 +26,8 @@ public class Calculate_15 implements Calculator {
         this.shortest = new HashMap<>();
         updateShortest(new Point(0,0), 0, rawInput);
 
-        for(int i = 0; i < 4; i++) {
-            findShortestDistance(rawInput); //it works like that, fuck it
+        for(int i = 0; i < 4; i++) { //it works like that, fuck it
+            findShortestDistance(rawInput);
         }
 
         Point end = new Point(rawInput.get(0).length() - 1, rawInput.size() - 1);
@@ -118,11 +118,27 @@ public class Calculate_15 implements Calculator {
 
     @Override
     public long calculatePart2() {
+        List<String> bigInput = generateBigInput();
+        generateGraph(bigInput);
+
+        Point start = new Point(0,0);
+        visited = new ArrayList<>(List.of(new Point(0,0)));
+        this.shortest = new HashMap<>();
+        updateShortest(new Point(0,0), 0, bigInput);
+
+        for(int i = 0; i < 6; i++) { //it works like that, fuck it
+            findShortestDistance(bigInput);
+        }
+
+        Point end = new Point(bigInput.get(0).length() - 1, bigInput.size() - 1);
+        return shortest.get(end).distance;
+    }
+
+    private List<String> generateBigInput() {
         MyFileReader fr = new MyFileReader(15,1);
         BufferedReader br = fr.createBufferedReader();
 
         List<String> bigInput = new ArrayList<>();
-
         try {
             while (true) {
                 String line = br.readLine();
@@ -157,20 +173,7 @@ public class Calculate_15 implements Calculator {
 
             }
         } catch (IOException ignore){}
-
-        generateGraph(bigInput);
-
-        Point start = new Point(0,0);
-        visited = new ArrayList<>(List.of(new Point(0,0)));
-        this.shortest = new HashMap<>();
-        updateShortest(new Point(0,0), 0, bigInput);
-
-        for(int i = 0; i < 6; i++) {
-            findShortestDistance(bigInput); //it works like that, fuck it
-        }
-
-        Point end = new Point(bigInput.get(0).length() - 1, bigInput.size() - 1);
-        return shortest.get(end).distance;
+        return bigInput;
     }
 
     private int newRisk(String line, int i, int x) {
