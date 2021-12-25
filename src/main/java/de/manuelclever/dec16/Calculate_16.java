@@ -7,45 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculate_16 implements Calculator {
-    List<String> binaries;
+    String binary;
 
     @Override
     public long calculatePart1() {
         generateBinary();
-        List<Packet> packets = new ArrayList<>();
 
-        for(String binary : binaries) {
-            int version = Integer.parseInt(binary.substring(0,3),2);
-            int type = Integer.parseInt(binary.substring(3,6),2);
+        int version = Integer.parseInt(binary.substring(0,3),2);
+        int type = Integer.parseInt(binary.substring(3,6),2);
+        Packet packet = recursive(version, type, binary.substring(6));
 
-            Packet packet = recursive(version, type, binary.substring(6));
-            packets.add(packet);
-        }
-
-        long sumVersions = 0;
-
-        for(Packet packet : packets) {
-            sumVersions += packet.versionSum();
-        }
-
-        return sumVersions;
+        return packet.versionSum();
     }
 
     private void generateBinary() {
         MyFileReader fr = new MyFileReader(16,1);
-        List<String> rawInput = fr.getStringList();
-        binaries = new ArrayList<>();
+        String line = fr.getString();
 
-        for (String line : rawInput) {
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-            for(int i = 0; i < line.length(); i++) {
-                char hex = line.charAt(i);
-
-                sb.append(convertHexToBinary(hex));
-            }
-            binaries.add(sb.toString());
+        for(int i = 0; i < line.length(); i++) {
+            char hex = line.charAt(i);
+            sb.append(convertHexToBinary(hex));
         }
+        binary = sb.toString();
     }
 
     private String convertHexToBinary(char hex) {
@@ -119,6 +104,7 @@ public class Calculate_16 implements Calculator {
             subPackets.add(subPacket);
         }
         return new Packet(version, type, 16, subPackets);
+        // 16 == typePacket + length of totalLength. Should be moved somewhere else for cleaner code
     }
 
     private Packet buildSubPacketTypePacket(int version, int type, String binary) {
@@ -136,10 +122,17 @@ public class Calculate_16 implements Calculator {
             binary = binary.substring(subPacket.lengthBinary);
         }
         return new Packet(version, type, 12, packets);
+        // 12 == typePacket + length of subPackets count. Should be moved somewhere else for cleaner code
     }
 
     @Override
     public long calculatePart2() {
-        return 0;
+        generateBinary();
+
+        int version = Integer.parseInt(binary.substring(0,3),2);
+        int type = Integer.parseInt(binary.substring(3,6),2);
+        Packet packet = recursive(version, type, binary.substring(6));
+
+        return packet.getValue();
     }
 }

@@ -1,11 +1,13 @@
 package de.manuelclever.dec16;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public class Packet {
     int version;
     int type;
-    long value;
+    private long value;
     List<Packet> subPackets;
 
     int lengthBinary;
@@ -30,8 +32,26 @@ public class Packet {
         }
     }
 
+    public long getValue() {
+        if(type == 4) {
+            return value;
+        } else {
+            LongStream longStream = subPackets.stream().mapToLong(Packet::getValue);
+            switch (type) {
+                case 0 -> {return longStream.sum();}
+                case 1 -> {return longStream.reduce((o1, o2) -> o1 * o2).getAsLong();}
+                case 2 -> {return longStream.min().getAsLong();}
+                case 3 -> {return longStream.max().getAsLong();}
+                case 5 -> {return subPackets.get(0).getValue() > subPackets.get(1).getValue() ? 1 : 0;}
+                case 6 -> {return subPackets.get(0).getValue() < subPackets.get(1).getValue() ? 1 : 0;}
+                case 7 -> {return subPackets.get(0).getValue() == subPackets.get(1).getValue() ? 1 : 0;}
+                default -> {return -1;}
+            }
+        }
+    }
+
     public boolean isFinalPacket() {
-        return value != -1;
+        return subPackets == null;
     }
 
     public int versionSum() {
