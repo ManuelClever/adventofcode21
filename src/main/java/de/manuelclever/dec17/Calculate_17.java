@@ -18,7 +18,6 @@ public class Calculate_17 implements Calculator {
     @Override
     public long calculatePart1() {
         start();
-
         Map<int[], Integer> successVelo = calculateSuccessfulVelocities();
 
         int maxYPos = Integer.MIN_VALUE;
@@ -98,6 +97,9 @@ public class Calculate_17 implements Calculator {
 
     @Override
     public long calculatePart2() {
-        return 0;
+        start();
+        Map<int[], Integer> successVelo = calculateSuccessfulVelocities();
+
+        return successVelo.size();
     }
 }
