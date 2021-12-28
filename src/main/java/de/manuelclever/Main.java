@@ -3,8 +3,6 @@ package de.manuelclever;
 import java.util.Scanner;
 
 public class Main {
-    private static int day = 0;
-    private static int part = 0;
 
     public static void main(String[] args) {
         execute();
@@ -12,6 +10,8 @@ public class Main {
 
     private static void execute() {
         Scanner scanner = new Scanner(System.in);
+        int day;
+        int part;
 
         loop: {
             while (true) {
@@ -40,28 +40,27 @@ public class Main {
                     }
                 }
 
-                Calculator calculator = null;
                 try {
-                    calculator = Factory.createCalculator(day);
+                    Calculator calculator = Factory.createCalculator(day);
+
+                    long startTime;
+                    long endTime;
+                    long solution;
+                    if (part == 1) {
+                        startTime = System.currentTimeMillis();
+                        solution = calculator.calculatePart1();
+                        endTime = System.currentTimeMillis();
+
+                    } else {
+                        startTime = System.currentTimeMillis();
+                        solution = calculator.calculatePart2();
+                        endTime = System.currentTimeMillis();
+                    }
+                    System.out.println("Solution to day " + day + ", part " + part + ": " + solution);
+                    System.out.println("Execution time: " + (endTime - startTime) + " ms");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-
-                long startTime;
-                long endTime;
-                long solution;
-                if (part == 1) {
-                    startTime = System.currentTimeMillis();
-                    solution = calculator.calculatePart1();
-                    endTime = System.currentTimeMillis();
-
-                } else {
-                    startTime = System.currentTimeMillis();
-                    solution = calculator.calculatePart2();
-                    endTime = System.currentTimeMillis();
-                }
-                System.out.println("Solution to day " + day + ", part " + part + ": " + solution);
-                System.out.println("Execution time: " + (endTime - startTime) + " ms");
             }
         }
     }
