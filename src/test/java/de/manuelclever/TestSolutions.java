@@ -61,7 +61,7 @@ public class TestSolutions
         list.add(new long[]{12,1,3369});
         list.add(new long[]{12,2,85883});
         list.add(new long[]{13,1,753});
-//        list.add(new long[]{13,2,0});  <- not tested because solution is drawn in console and read manually
+//        list.add(new long[]{13,2,HZLEHJRK});  <- not tested because solution is drawn in console and read manually
         list.add(new long[]{14,1,2112});
         list.add(new long[]{14,2,3243771149914L});
         list.add(new long[]{15,1,739});
@@ -70,6 +70,8 @@ public class TestSolutions
         list.add(new long[]{16,2,834151779165L});
         list.add(new long[]{17,1,2701});
         list.add(new long[]{17,2,1070});
+//        list.add(new long[]{18,1,0}); <- should work, but doesn't
+//        list.add(new long[]{18,2,0});
 
         return list.stream();
     }

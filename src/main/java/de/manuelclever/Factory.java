@@ -17,6 +17,7 @@ import de.manuelclever.dec14.Calculate_14;
 import de.manuelclever.dec15.Calculate_15;
 import de.manuelclever.dec16.Calculate_16;
 import de.manuelclever.dec17.Calculate_17;
+import de.manuelclever.dec18.Calculate_18;
 
 public class Factory {
 
@@ -40,6 +41,7 @@ public class Factory {
             case 15 -> {return new Calculate_15();}
             case 16 -> {return new Calculate_16();}
             case 17 -> {return new Calculate_17();}
+            case 18 -> {return new Calculate_18();}
             default -> throw new Exception("No such class");
         }
 

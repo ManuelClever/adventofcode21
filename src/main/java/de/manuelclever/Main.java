@@ -60,6 +60,7 @@ public class Main {
                     System.out.println("Execution time: " + (endTime - startTime) + " ms");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
